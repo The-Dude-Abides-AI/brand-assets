@@ -1,0 +1,13 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  ci:
+    uses: the-dude-abides-ai/.github/.github/workflows/ci-reusable.yml@main
+    with:
+      post-merge: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    secrets: inherit
