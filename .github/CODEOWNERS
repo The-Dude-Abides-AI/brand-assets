@@ -1,0 +1,3 @@
+# CI workflow files require org owner approval
+/.github/workflows/ @The-Dude-Abides-AI
+/.github/CODEOWNERS @The-Dude-Abides-AI
