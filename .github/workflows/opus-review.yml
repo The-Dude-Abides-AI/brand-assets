@@ -25,7 +25,7 @@ jobs:
       - name: Checkout Opus scripts
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.2.2
         with:
-          repository: skillbar-ai/.github
+          repository: The-Dude-Abides-AI/.github
           path: .opus-scripts
           sparse-checkout: scripts
 
