@@ -6,6 +6,6 @@ on:
 
 jobs:
   opus-review:
-    uses: the-dude-abides-ai/.github/.github/workflows/opus-review.yml@main
+    uses: The-Dude-Abides-AI/.github/.github/workflows/opus-review.yml@main
     secrets:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
