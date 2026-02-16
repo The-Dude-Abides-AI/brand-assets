@@ -1,4 +1,4 @@
-# CI — calls the shared reusable workflow from skillbar-ai/.github
+# CI — calls the shared reusable workflow
 name: CI
 
 on:
@@ -8,5 +8,5 @@ on:
 
 jobs:
   ci:
-    uses: skillbar-ai/.github/.github/workflows/ci-reusable.yml@main
+    uses: the-dude-abides-ai/.github/.github/workflows/ci-reusable.yml@main
     secrets: inherit
