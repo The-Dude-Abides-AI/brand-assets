@@ -7,7 +7,7 @@ on:
 
 jobs:
   ci:
-    uses: the-dude-abides-ai/.github/.github/workflows/ci-reusable.yml@main
+    uses: The-Dude-Abides-AI/.github/.github/workflows/ci-reusable.yml@main
     with:
       opus-review: ${{ github.event_name == 'pull_request' }}
     secrets: inherit
