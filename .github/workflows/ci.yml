@@ -52,7 +52,7 @@ jobs:
             git ls-files '*.sh' '*.bash'
             git ls-files | while IFS= read -r f; do
               [[ "$f" == *.sh || "$f" == *.bash ]] && continue
-              [[ -f "$f" ]] && head -1 "$f" | grep -qE '^#!.*\b(ba)?sh\b' && echo "$f"
+              [[ -f "$f" ]] && head -1 "$f" | grep -qE '^#!.*\b(ba)?sh\b' && echo "$f" || true
             done
           } | sort -u > /tmp/shell-files-raw.txt
           mapfile -t files < /tmp/shell-files-raw.txt
@@ -83,10 +83,16 @@ jobs:
             bash -n "$f"
           done
 
+      - name: Install gitleaks
+        run: |
+          GITLEAKS_VERSION="8.24.3"
+          GITLEAKS_SHA256="9991e0b2903da4c8f6122b5c3186448b927a5da4deef1fe45271c3793f4ee29c"
+          curl -sSfL -o /tmp/gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  /tmp/gitleaks.tar.gz" | sha256sum -c -
+          sudo tar -xzf /tmp/gitleaks.tar.gz -C /usr/local/bin gitleaks
+
       - name: Secret scan (gitleaks)
-        uses: gitleaks/gitleaks-action@dcedce43c6f43de0b836d1fe38946645c9c638dc # v2.3.9
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gitleaks detect --source . --verbose
 
       - name: Run tests
         run: |
