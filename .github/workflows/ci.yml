@@ -83,11 +83,14 @@ jobs:
             bash -n "$f"
           done
 
+      - name: Install gitleaks
+        run: |
+          GITLEAKS_VERSION="8.24.3"
+          curl -sSfL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            | sudo tar -xz -C /usr/local/bin gitleaks
+
       - name: Secret scan (gitleaks)
-        continue-on-error: true  # gitleaks-action requires paid license for orgs — tracked in DUDE-240 follow-up
-        uses: gitleaks/gitleaks-action@dcedce43c6f43de0b836d1fe38946645c9c638dc # v2.3.9
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gitleaks detect --source . --verbose
 
       - name: Run tests
         run: |
