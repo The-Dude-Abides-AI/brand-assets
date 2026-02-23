@@ -84,6 +84,7 @@ jobs:
           done
 
       - name: Secret scan (gitleaks)
+        continue-on-error: true  # gitleaks-action requires paid license for orgs — tracked in DUDE-240 follow-up
         uses: gitleaks/gitleaks-action@dcedce43c6f43de0b836d1fe38946645c9c638dc # v2.3.9
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
